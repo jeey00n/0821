@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>위치 정보 사용</title>
+</head>
+<body>
+	<div id="map" style="width:700px;height:550px;"></div>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=415bc664eef84ed5c980fd9165ca1051"></script>
+</body>
+<script>
+	navigator.geolocation.getCurrentPosition(
+			function(location){
+				var container = document.getElementById('map');
+				var options = {
+					center: new daum.maps.LatLng(location.coords.latitude, location.coords.longitude),
+					level: 5
+				};
+				var map = new daum.maps.Map(container, options);
+				
+				// 마커가 표시될 위치입니다 
+				var markerPosition  = new daum.maps.LatLng(location.coords.latitude, location.coords.longitude); 
+
+				// 마커를 생성합니다
+				var marker = new daum.maps.Marker({
+				    position: markerPosition
+				});
+
+				// 마커가 지도 위에 표시되도록 설정합니다
+				marker.setMap(map);
+				
+				// 마커가 드래그 가능하도록 설정합니다 
+				marker.setDraggable(true); 
+				
+			}, function(error){
+				alert(error.code)
+				}
+			);
+</script>
+</html>
